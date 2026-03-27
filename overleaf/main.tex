@@ -1,0 +1,128 @@
+\documentclass[lighthipster]{simplehipstercv}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{raleway}
+\usepackage[margin=1cm, a4paper]{geometry}
+
+\newlength{\rightcolwidth}
+\newlength{\leftcolwidth}
+\setlength{\leftcolwidth}{0.30\textwidth}
+\setlength{\rightcolwidth}{0.68\textwidth}
+
+\pagestyle{empty}
+\begin{document}
+
+\thispagestyle{empty}
+
+\section*{Start}
+
+\simpleheader{headercolour}{Pedro}{Elizalde}{Estudiante de Ingeniería Industrial}{white}
+
+\subsection*{}
+\vspace{4em}
+
+\setlength{\columnsep}{1.5cm}
+\columnratio{0.23}[0.75]
+\begin{paracol}{2}
+\hbadness5000
+
+\paracolbackgroundoptions
+
+\footnotesize
+{\setasidefontcolour
+\flushright
+\begin{center}
+\centering \includegraphics[width=0.5\linewidth]{image.png}
+\end{center}
+
+\bg{cvgreen}{white}{Sobre mí}\\[0.5em]
+
+Estudiante de Ingeniería Industrial con interés en la optimización de procesos y la mejora continua. Me destaco por mi responsabilidad, capacidad de organización y buena adaptación al trabajo en equipo. Busco seguir desarrollando habilidades tanto técnicas como personales.
+
+\bigskip
+
+\bg{cvgreen}{white}{Datos personales} \\[0.5em]
+
+Pedro Elizalde
+
+Nacionalidad: Argentino  
+
+Fecha de nacimiento: 29/12/2005
+
+\bigskip
+
+\bg{cvgreen}{white}{Fortalezas} \\[0.5em]
+
+Trabajo en equipo ~•~ Organización ~•~ Responsabilidad ~•~ Adaptabilidad ~•~ Resolución de problemas ~•~ Pensamiento analítico
+
+\bigskip
+
+\bg{cvgreen}{white}{Intereses}\\[0.5em]
+
+Tecnología ~•~ Deportes ~•~ Música ~•~ Desarrollo personal ~•~ Economía y negocios
+
+\bigskip
+
+\bg{cvgreen}{white}{Herramientas}\\[0.5em]
+
+\texttt{Excel} ~/~ \texttt{Octave} ~/~ \texttt{Word}
+
+\vspace{4em}
+
+% Corrección de alineación del mail en el círculo
+
+
+\phantom{turn the page}
+}
+
+\switchcolumn
+
+\small
+\section*{Historia Académica}
+
+\begin{tabular}{r| p{0.5\textwidth} c}
+\cvevent{2011--2018}{Educación Primaria}{Colegio Murialdo}{Mendoza}{}{} \\
+\cvevent{2019--2023}{Educación Secundaria}{Colegio Murialdo}{Mendoza}{}{} \\
+\cvevent{2023--Actualidad}{Ingeniería Industrial}{Universidad Nacional de Cuyo}{Mendoza}{Estudiante de tercer año}{} \\
+\end{tabular}
+
+\vspace{3em}
+
+\begin{minipage}[t]{0.35\textwidth}
+\section*{Promedios}
+\begin{tabular}{r p{0.6\textwidth} c}
+\cvdegree{2018}{Educación Primaria}{9.95}{}{}{} \\
+\cvdegree{2023}{Educación Secundaria}{9.50}{}{}{} \\
+\cvdegree{Actualidad}{Educación Universitaria}{8}{}{}{}
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\textwidth}
+\section*{Habilidades}
+\begin{tabular}{r @{\hspace{0.5em}}l}
+\bg{skilllabelcolour}{iconcolour}{Responsbilidad} &  \barrule{0.6}{0.5em}{cvpurple}\\
+\bg{skilllabelcolour}{iconcolour}{Inglés} & \barrule{0.4}{0.5em}{cvgreen} \\
+\bg{skilllabelcolour}{iconcolour}{Organización} & \barrule{0.8}{0.5em}{cvpurple} \\
+\bg{skilllabelcolour}{iconcolour}{Trabajo en equipo} & \barrule{0.9}{0.5em}{cvpurple} \\
+\end{tabular}
+\end{minipage}
+
+\vspace{4em}
+
+\section*{Experiencias}
+\begin{tabular}{r| p{0.5\textwidth} c}
+\cvevent{2025--2026}{Lift Operator}{Ski Resort}{Vermont, Estados Unidos}{Trabajé en un centro de esquí la temporada pasada de invierno en EEUU.}{} \\
+\end{tabular}
+
+\vfill{}
+
+\setlength{\parindent}{0pt}
+\begin{minipage}[t]{\rightcolwidth}
+\begin{center}\fontfamily{\sfdefault}\selectfont \color{black!70}
+% Corrección de espaciado en el pie de página
+{\small 2617078638 \quad \icon{\faEnvelopeO}{cvgreen}{} \quad pedroelizaldegrandin@gmail.com}
+\end{center}
+\end{minipage}
+
+\end{paracol}
+
+\end{document}
