@@ -1,1 +1,0 @@
-@@ Curriculum hecho en LaTEX
