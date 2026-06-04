@@ -1,1 +1,465 @@
+---
+title: "Módulo 2 - Grupo: Los Pookies"
+date: "2026-04-15"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: false
+header-includes:
+  - \usepackage{fontspec}
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+if (!requireNamespace("tictoc",   quietly = TRUE)) install.packages("tictoc")
+if (!requireNamespace("ggplot2",  quietly = TRUE)) install.packages("ggplot2")
+library(tictoc)
+library(ggplot2)
+```
+
+## Introducción
+
+El presente informe corresponde al Módulo 2 y fue desarrollado por el grupo Los Pookies. En él se trabaja con R Markdown, una herramienta que integra código R y texto en un mismo archivo, permitiendo generar reportes completamente reproducibles de forma sencilla.
+
+Durante el desarrollo del módulo fuimos familiarizándonos con el entorno de R: aprendimos a declarar variables, trabajar con vectores, utilizar datasets precargados y generar distintos tipos de gráficos. A medida que avanzamos, nos encontramos con conceptos más complejos como la medición del tiempo de ejecución, la generación de secuencias, la serie de Fibonacci y algoritmos de ordenamiento.
+
+Una de las ideas centrales que atraviesa todo el módulo es que escribir código que funcione no es suficiente: también importa hacerlo de forma eficiente. A través de distintas comparaciones prácticas, pudimos comprobar en primera persona cómo la elección del método puede marcar una diferencia enorme en el rendimiento de un programa.
+
+## Probando primeros comandos de R
+
+R es un lenguaje muy parecido a MATLAB y trabaja con variables que en general pueden ser matrices.
+
+```{r primeros-comandos}
+A <- 38
+A <- 40
+B <- 60
+C <- B - A
+C
+```
+
+## Uso de data sets o base de datos internos de R
+
+Usando el comando `data()` en la consola obtenemos distintos datos ya cargados en la base de datos de R. Estos datos están cargados en tablas de las cuales podemos elegir columnas específicas si escribimos el signo `$` después del comando de información específico que queremos.
+
+También está el comando `summary()`, que es una de las herramientas más útiles y rápidas que tiene R para hacer estadística descriptiva básica.
+
+```{r dataset}
+# Planteamos el dataset
+data(cars)
+
+# Usamos el símbolo $ para extraer SOLO la columna de velocidades (speed)
+velocidades <- cars$speed
+
+# Mostramos los primeros 6 valores de esa columna aislada
+head(velocidades)
+
+summary(cars)
+```
+
+## Comando plot (Gráficos)
+
+Es un comando que sirve para graficar cualquier fuente de datos que le asignemos. Tenemos la posibilidad de asignar nombres a las variables o hacer cambios del gráfico. En caso de no saber el comando podemos escribir *plot* en la consola; a la derecha nos va a abrir una pestaña donde podemos tocar Generic X-Y Plotting y ahí nos va a explicar cada parámetro.
+
+```{r plot-pressure}
+plot(pressure, type = "s",
+     main = "Presión del gas ideal",
+     ylab = "hPa",
+     xlab = "K")
+```
+
+## Funciones estadísticas
+
+Otro comando usado es `rnorm`. Este genera datos aleatorios forzando a que sigan la forma de una Distribución Normal (la famosa campana de Gauss).
+
+Podemos asignarle ciertos parámetros: Tamaño de la muestra **n** (cantidad de datos a generar, en este caso 350), Media (el valor central, en este caso 22), y Desviación estándar (representa la dispersión o el "error experimental", en este caso 5).
+
+```{r rnorm}
+z1 <- rnorm(350, 22, 5)
+z1
+```
+
+```{r length-z1}
+w1 <- length(z1)
+w1
+```
+
+```{r secuencia-x1}
+x1 <- 500:849
+x1
+```
+
+```{r plot-z1-x1}
+plot(z1, x1)
+```
+
+El comando `hist()` genera un histograma.
+
+```{r histograma}
+hist(z1, main = "Histograma de edades", breaks = 60)
+```
+
+El comando `density()` calcula la densidad de probabilidad. Es la versión matemática, suavizada y continua del histograma.
+
+```{r density-summary}
+density(z1)
+```
+
+```{r plot-density}
+plot(density(z1))
+```
+
+---
+
+## Ejercicio 1: Designación
+
+*Consigna:* Las últimas 3 cifras del DNI son 395, crear una variable que tenga ese número.
+
+```{r ejercicio1-dni}
+DNI <- 395
+```
+
+*Consigna:* Crear un vector del 1 al 395.
+
+```{r ejercicio1-vector}
+secuencia_dni <- 1:395
+secuencia_dni
+```
+
+---
+
+## Ejercicio 2: Uso de for
+
+*Consigna:* Calcular la suma de todos los valores del vector secuencia\_dni usando un for:
+
+```{r ejercicio2-for}
+Total <- 0
+valor_final <- length(secuencia_dni)
+
+for (i in 1:valor_final) {
+  Total <- Total + i
+}
+Total
+```
+
+---
+
+## Ejercicio 3: Python
+
+*Consigna:* Repetir el ejercicio anterior pero en Python.
+
+```{r ejercicio3-python-r, comment=""}
+# Equivalente Python mostrado como texto (sin reticulate)
+cat('# --- Ejercicio 1 ---\n')
+cat('# Crear una variable con las últimas 3 cifras del DNI (395)\n')
+cat('dni = 395\n\n')
+cat('# Crear un vector (lista) del 1 al 395\n')
+cat('secuencia_dni = list(range(1, dni + 1))\n\n')
+cat('# --- Ejercicio 2 ---\n')
+cat('# Calcular la suma usando un bucle for\n')
+cat('total = 0\n')
+cat('for i in secuencia_dni:\n')
+cat('    total += i\n\n')
+cat('print(f"La suma total es: {total}")\n')
+cat('\n## Resultado: La suma total es: 78210\n')
+```
+
+---
+
+## Ejercicio 4: Medición de tiempo (sys.time)
+
+*Consigna:* ¿Cuánto tarda en correr el código del ejercicio 2?
+
+Usamos el comando *Sys.time*
+
+```{r ejercicio4-systime}
+inicio <- Sys.time()
+total <- 0
+valor_final <- 10000 * length(secuencia_dni)
+for (i in 1:valor_final) {
+  total <- total + i
+}
+total
+
+final <- Sys.time()
+final - inicio
+```
+
+---
+
+## Ejercicio 5: 2da medición de tiempo (tictoc)
+
+*Consigna:* Aplicar la consigna anterior pero aprendiendo a usar el comando *tictoc*.
+
+```{r ejercicio5-tictoc}
+library(tictoc)
+
+# Iniciamos el cronómetro asignándole un nombre descriptivo a la prueba
+tic("Tiempo de ejecución")
+
+# Inicio del bloque a medir
+Total <- 0
+valor_final <- length(secuencia_dni)
+
+for(i in 1:valor_final) {
+  Total <- Total + i
+}
+
+# Se "detiene" el cronómetro e imprime el tiempo transcurrido
+toc()
+```
+
+```{r ejercicio5-verificar}
+# Imprimimos Total para verificar que el cálculo matemático se hizo bien
+Total
+```
+
+---
+
+## Ejercicio 6: Secuencia
+
+*Consigna:* Generar secuencia de 2 en 2 hasta 50000.
+
+```{r ejercicio6-for}
+inicio_for <- Sys.time()
+
+A <- numeric(50000)
+for (i in 1:50000) {
+  A[i] <- i * 2
+}
+
+final_for <- Sys.time()
+tiempo_for <- final_for - inicio_for
+```
+
+Secuencia con función nativa de R:
+
+```{r ejercicio6-seq}
+inicio_seq <- Sys.time()
+
+B <- seq(2, 100000, by = 2)
+
+final_seq <- Sys.time()
+tiempo_seq <- final_seq - inicio_seq
+```
+
+```{r ejercicio6-resultados}
+# Resultados
+tiempo_for
+tiempo_seq
+```
+
+---
+
+## Ejercicio 7: Serie de Fibonacci
+
+*Consigna:* Generar sucesión o serie de Fibonacci hasta superar 1.000.000.
+
+```{r ejercicio7-fibonacci}
+# Generar Fibonacci hasta superar 1.000.000
+fibonacci <- c(0, 1)
+iteraciones <- 2
+
+while (fibonacci[length(fibonacci)] <= 1000000) {
+  nuevo <- fibonacci[length(fibonacci)] + fibonacci[length(fibonacci) - 1]
+  fibonacci <- c(fibonacci, nuevo)
+  iteraciones <- iteraciones + 1
+}
+
+fibonacci
+iteraciones
+```
+
+---
+
+## Ejercicio 8: Definición matemática recurrente
+
+*Consigna:* ¿Cuántas iteraciones se necesitan para generar un número de la serie mayor que 1.000.000?
+
+```{r ejercicio8-recurrente}
+f0 <- 0           # Valores iniciales
+f1 <- 1
+f2 <- 0
+i  <- 0           # Número de iteraciones inicial
+valorfinal <- 1000000  # Umbral
+
+while (f2 < valorfinal) {
+  f2 = f0 + f1
+  f0 = f1
+  f1 = f2
+  i  <- i + 1
+}
+f2
+i
+```
+
+---
+
+## Ejercicio 9: Método Burbuja (Bubble Sort)
+
+*Consigna:* Comparar la performance de ordenación del método burbuja vs el método sort de R.
+
+```{r ejercicio9-burbuja-def}
+x <- sample(1:20000, 20000)
+
+burbuja <- function(x) {
+  n <- length(x)
+  for (j in 1:(n - 1)) {
+    for (i in 1:(n - j)) {
+      if (x[i] > x[i + 1]) {
+        temp     <- x[i]
+        x[i]     <- x[i + 1]
+        x[i + 1] <- temp
+      }
+    }
+  }
+  return(x)
+}
+```
+
+Comparación:
+
+```{r ejercicio9-comparacion, cache=TRUE}
+system.time({
+  res1 <- burbuja(x)
+})
+
+system.time({
+  res2 <- sort(x)
+})
+```
+
+---
+
+## Ejercicio 10: Penitencia de Newton
+
+*Consigna:* Desarrollar dos algoritmos que sumen desde 1 hasta 1.000.000 y verificar cuál es más eficiente.
+
+*Método 1 (for):*
+
+```{r ejercicio10-for}
+n <- 1000000
+
+system.time({
+  suma1 <- 0
+  for (i in 1:n) {
+    suma1 <- suma1 + i
+  }
+})
+```
+
+*Método 2 (fórmula matemática):*
+
+```{r ejercicio10-formula}
+system.time({
+  suma2 <- n * (n + 1) / 2
+})
+```
+
+Comparación:
+
+```{r ejercicio10-comparacion}
+suma1
+suma2
+```
+
+---
+
+## Ejercicio 11: Comparación visual FOR vs seq() con ggplot2
+
+*Consigna:* Comparar el rendimiento del bucle `for` contra la función nativa `seq()` de R para generar una secuencia de pares, repitiendo la medición 30 veces y visualizando la distribución de tiempos con un gráfico de violín + boxplot en escala logarítmica.
+
+### Medición de tiempos (30 repeticiones)
+
+```{r ejercicio11-mediciones}
+library(ggplot2)
+
+n_rep <- 30
+
+# Vectores para guardar los tiempos
+tiempos_for <- numeric(n_rep)
+tiempos_seq <- numeric(n_rep)
+
+for (rep in 1:n_rep) {
+
+  # --- MÉTODO 1: Bucle FOR ---
+  inicio_for <- Sys.time()
+  A <- 0
+  for (i in 1:50000) {
+    A[i] <- (i * 2)
+  }
+  fin_for      <- Sys.time()
+  tiempo_for   <- fin_for - inicio_for
+  tiempos_for[rep] <- as.numeric(tiempo_for, units = "secs")
+
+  # --- MÉTODO 2: Función seq() ---
+  inicio_seq <- Sys.time()
+  B <- seq(from = 2, to = 100000, by = 2)
+  fin_seq      <- Sys.time()
+  tiempo_seq   <- fin_seq - inicio_seq
+  tiempos_seq[rep] <- as.numeric(tiempo_seq, units = "secs")
+}
+```
+
+### Construcción del gráfico
+
+```{r ejercicio11-grafico, fig.width=7, fig.height=5}
+# Armamos el data frame con los resultados
+datos_rendimiento <- data.frame(
+  Tiempo = c(tiempos_for, tiempos_seq),
+  Metodo = rep(c("Bucle FOR", "seq()"), each = n_rep)
+)
+
+grafico <- ggplot(datos_rendimiento, aes(x = Metodo, y = Tiempo, fill = Metodo)) +
+  # Violines semitransparentes
+  geom_violin(trim = FALSE, alpha = 0.5) +
+  # Puntos reales de cada medición
+  geom_jitter(width = 0.05, alpha = 0.6, color = "#333333", size = 2) +
+  # Diagrama de caja en el centro
+  geom_boxplot(width = 0.1, fill = "white", color = "black", outlier.shape = NA) +
+  # Escala logarítmica en Y para apreciar la diferencia
+  scale_y_log10() +
+  labs(
+    title    = "Eficiencia de Algoritmos: Bucle FOR vs seq()",
+    subtitle = "Distribución de tiempos tras 30 ejecuciones (Escala Logarítmica)",
+    x        = "Método de Generación",
+    y        = "Tiempo de Ejecución (segundos - Log10)"
+  ) +
+  theme_minimal(base_size = 15) +
+  theme(
+    legend.position  = "none",
+    plot.title       = element_text(face = "bold", size = 16),
+    panel.grid.minor = element_blank()
+  ) +
+  scale_fill_manual(values = c("#FF6B6B", "#4ECDC4"))
+
+grafico
+```
+
+### Resumen numérico
+
+```{r ejercicio11-resumen}
+cat("=== Bucle FOR ===\n")
+cat(sprintf("  Media:   %.6f seg\n", mean(tiempos_for)))
+cat(sprintf("  Mediana: %.6f seg\n", median(tiempos_for)))
+cat(sprintf("  Mín:     %.6f seg\n", min(tiempos_for)))
+cat(sprintf("  Máx:     %.6f seg\n", max(tiempos_for)))
+
+cat("\n=== Función seq() ===\n")
+cat(sprintf("  Media:   %.6f seg\n", mean(tiempos_seq)))
+cat(sprintf("  Mediana: %.6f seg\n", median(tiempos_seq)))
+cat(sprintf("  Mín:     %.6f seg\n", min(tiempos_seq)))
+cat(sprintf("  Máx:     %.6f seg\n", max(tiempos_seq)))
+
+cat(sprintf("\n¿Cuántas veces más rápido es seq()? ~%.0fx\n",
+            mean(tiempos_for) / mean(tiempos_seq)))
+```
+
+---
+
+## Conclusión final
+
+Este módulo nos permitió dar nuestros primeros pasos serios dentro del lenguaje R, entendiendo no solo su sintaxis sino también la lógica detrás de cada herramienta. Trabajar con datasets reales como `cars` o `pressure`, generar distribuciones normales con `rnorm` y visualizar resultados con `plot`, `hist` y `density` nos dio una base sólida para el análisis estadístico.
+
+A medida que avanzamos hacia los ejercicios de mayor complejidad, quedó muy claro que la forma en que se resuelve un problema importa tanto como resolverlo. El ejercicio del Bubble Sort fue quizás el ejemplo más contundente: un algoritmo correcto pero mal diseñado puede tardar decenas de segundos en lo que `sort()` resuelve en milisegundos. Lo mismo ocurrió con la suma iterativa versus la fórmula de Gauss, donde la diferencia de tiempo fue prácticamente absoluta.
+
+El grupo Los Pookies concluye que programar bien implica pensar antes de escribir. Entender el problema, conocer las herramientas disponibles y elegir el enfoque adecuado son habilidades que van mucho más allá de la sintaxis. Este módulo fue una primera aproximación muy concreta a esa forma de pensar.
