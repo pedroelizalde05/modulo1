@@ -1,0 +1,50 @@
+---
+title: "Eficiencia Algorítmica en R"
+author: "Los pookies"
+date: "`r Sys.Date()`"
+output:
+  slidy_presentation: default
+  ioslides_presentation:
+    widescreen: true
+    smaller: false
+subtitle: Análisis de Performance | Grupo Los Pookies
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Introducción
+¿Por qué medir el rendimiento?
+En Ingeniería, el tiempo es un recurso crítico.
+
+Hoy comparamos dos enfoques para generar 50,000 datos:
+
+El tradicional Bucle FOR.
+
+La potencia de la Vectorización con seq().
+
+El Bucle FOR
+El problema del "crecimiento dinámico"
+Cada vez que el bucle corre:
+
+R debe buscar un nuevo espacio en la memoria RAM.
+
+Se copian los datos anteriores al nuevo sitio.
+
+Resultado: Un proceso lento que consume recursos innecesariamente.
+
+Función seq()
+La ventaja de la Vectorización
+A diferencia del bucle, seq() funciona a bajo nivel (C++):
+
+Reserva memoria una sola vez.
+
+Procesa el vector completo en un solo paso.
+
+Es el estándar de oro para la ciencia de datos en R.
+
+Metodología
+Para asegurar precisión, realizamos el experimento 30 veces por cada método y graficamos la distribución de los tiempos obtenidos.
+
+(Usamos escala logarítmica para visualizar la diferencia abismal).
